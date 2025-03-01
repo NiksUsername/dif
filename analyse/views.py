@@ -9,7 +9,6 @@ from email.message import EmailMessage
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 
-# Set your OpenAI API key from the environment variable
 
 @csrf_exempt
 def analyse(request):
@@ -17,7 +16,6 @@ def analyse(request):
         return HttpResponseBadRequest("Only POST requests are allowed.")
 
     try:
-        # Parse JSON body from the POST request
         data = json.loads(request.body)
         logs = data.get('logs')
         recipient_email = data.get('email')
@@ -26,12 +24,10 @@ def analyse(request):
     except Exception:
         return HttpResponseBadRequest("Invalid JSON data.")
 
-    # Build the prompt for ChatGPT using the logs
     prompt = f"Please analyze the following logs and provide insights:\n{logs}"
 
     try:
-        # Call ChatGPT (using the gpt-3.5-turbo model here)
-        response = client.chat.completions.create(model="gpt-3.5-turbo",
+        response = client.chat.completions.create(model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "You are an assistant analyzing logs."},
             {"role": "user", "content": prompt}
@@ -44,7 +40,7 @@ def analyse(request):
             "details": str(e)
         }, status=500)
 
-    # Prepare the email with the analysis response
+
     email_subject = "ChatGPT Analysis Response"
     email_body = (
         f"Dear User,\n\n"
