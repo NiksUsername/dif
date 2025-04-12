@@ -6,9 +6,8 @@ local_settings.py
 db.sqlite3
 /media
 
-
-env/
-venv/
+**/env/
+**/venv/
 
 .idea/
 .vscode/
