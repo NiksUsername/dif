@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encryption Result</title>
+</head>
+<body>
+    <h1>Encryption Result:</h1>
+    {% if encrypted_message %}
+        <pre>{{ encrypted_message }}</pre>
+    {% elif error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <br>
+    <a href="/">Go back</a>
+</body>
+</html>
